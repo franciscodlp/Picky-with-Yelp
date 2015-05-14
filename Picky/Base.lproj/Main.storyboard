@@ -20,11 +20,6 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="110" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="R2p-A3-1IY">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <searchBar key="tableHeaderView" contentMode="redraw" id="ybr-Sy-lBc">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                    <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
-                                </searchBar>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="PickySearchBusinessCell" rowHeight="110" id="TAG-DW-vn4" customClass="PickySearchBusinessCell" customModule="Picky" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -125,8 +120,8 @@
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="R2p-A3-1IY" secondAttribute="bottom" id="2FW-0V-sIU"/>
                             <constraint firstItem="R2p-A3-1IY" firstAttribute="leading" secondItem="f6X-SH-ED3" secondAttribute="leading" id="WSD-VM-Ykd"/>
-                            <constraint firstItem="R2p-A3-1IY" firstAttribute="top" secondItem="f6X-SH-ED3" secondAttribute="top" id="dSd-vm-WIn"/>
                             <constraint firstAttribute="trailing" secondItem="R2p-A3-1IY" secondAttribute="trailing" id="iFw-nF-4qI"/>
+                            <constraint firstItem="R2p-A3-1IY" firstAttribute="top" secondItem="f6X-SH-ED3" secondAttribute="top" id="wzk-Kf-bqd"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="yDf-Kk-irs">
@@ -135,10 +130,13 @@
                                 <segue destination="iVv-8n-y0y" kind="modal" id="vhu-C1-F9Q"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Search" id="fGr-CY-iL2"/>
+                        <barButtonItem key="rightBarButtonItem" title="Search" id="fGr-CY-iL2">
+                            <connections>
+                                <action selector="onSearchButton:" destination="RkG-Ws-n6G" id="yUh-C6-XrR"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="altSearchBar" destination="ybr-Sy-lBc" id="Wpw-ag-M9o"/>
                         <outlet property="tableView" destination="R2p-A3-1IY" id="Ptn-0z-IY2"/>
                     </connections>
                 </viewController>

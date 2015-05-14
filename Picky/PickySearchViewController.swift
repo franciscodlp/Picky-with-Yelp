@@ -13,11 +13,14 @@ class PickySearchViewController: UIViewController, UITableViewDataSource, UITabl
     @IBOutlet var tableView: UITableView!
     
     var businesses: [Business]!
+    var topSearchBar: UISearchBar!
+    var tableHeaderSearchBar: UISearchBar!
+    var isSearchBarActive = false
     
-    @IBOutlet var altSearchBar: UISearchBar!
-    
-    var searchBar: UISearchBar!
-    
+    @IBAction func onSearchButton(sender: AnyObject) {
+        searchBarTapped()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,30 +32,31 @@ class PickySearchViewController: UIViewController, UITableViewDataSource, UITabl
         MRProgressOverlayView.showOverlayAddedTo(self.view, title: "", mode: MRProgressOverlayViewMode.Indeterminate, animated: true)
         Business.searchWithTerm("Restaurants", limit: nil, offset: nil, sort: .Distance, categories: ["pizza", "burgers"], radius: nil, deals: nil) { (businesses:[Business]!, error:NSError!) -> Void in
             if error == nil {
-                MRProgressOverlayView.dismissOverlayForView(self.view, animated: true)
                 self.businesses = businesses
                 self.tableView.reloadData()
+                MRProgressOverlayView.dismissOverlayForView(self.view, animated: true)
             } else {
                 MRProgressOverlayView.dismissOverlayForView(self.view, animated: true)
                 println(error)
             }
         }
-        
-        altSearchBar.tag = 1
-        altSearchBar.delegate = self
-        altSearchBar.showsCancelButton = true
-        altSearchBar.frame = CGRect(origin: altSearchBar.frame.origin, size: CGSize(width: self.altSearchBar.frame.size.width, height: 0.0))
-        searchBar = UISearchBar()
-        searchBar.delegate = self
-        searchBar.tag = 0
-        self.navigationItem.titleView = searchBar
+        tableHeaderSearchBar = UISearchBar()
+        tableHeaderSearchBar.delegate = self
+        tableHeaderSearchBar.showsCancelButton = true
+
+        topSearchBar = UISearchBar()
+        topSearchBar.delegate = self
+        topSearchBar.tag = 3
+        self.navigationItem.titleView = topSearchBar
         
         
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(true)
-        //        self.searchBar.hidden = true
+        topSearchBar.hidden = false
+        isSearchBarActive = false
+        tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -61,8 +65,22 @@ class PickySearchViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     
-    func searchBarTapped(sender: UIButton) {
-        
+    func searchBarTapped() {
+        self.tableHeaderSearchBar.resignFirstResponder()
+        self.topSearchBar.resignFirstResponder()
+        MRProgressOverlayView.showOverlayAddedTo(self.view, title: "", mode: MRProgressOverlayViewMode.Indeterminate, animated: true)
+        Business.searchWithTerm(tableHeaderSearchBar.text, limit: 20, offset: 0, sort: YelpSortMode.BestMatched, categories: nil, radius: nil, deals: nil) { (businesses: [Business]!, error: NSError!) -> Void in
+            if error == nil {
+                self.businesses = businesses
+                self.topSearchBar.hidden = false
+                self.isSearchBarActive = false
+                self.tableView.reloadData()
+                MRProgressOverlayView.dismissOverlayForView(self.view, animated: true)
+            } else {
+                MRProgressOverlayView.dismissOverlayForView(self.view, animated: true)
+                println(error)
+            }
+        }
     }
     
     /*
@@ -103,6 +121,13 @@ extension PickySearchViewController: UITableViewDataSource {
 
 extension PickySearchViewController: UITableViewDelegate {
     
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return isSearchBarActive ? 44 : 0
+    }
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return tableHeaderSearchBar
+    }
 }
 
 // MARK: UISearchBarDelegate
@@ -110,26 +135,20 @@ extension PickySearchViewController: UITableViewDelegate {
 extension PickySearchViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-        if searchBar.tag == 1 {
-            self.searchBar.hidden = false
-            self.altSearchBar.frame = CGRect(origin: self.altSearchBar.frame.origin, size: CGSize(width: self.altSearchBar.frame.size.width, height: 0.0))
-            self.altSearchBar.resignFirstResponder()
-            self.tableView.reloadData()
-        }
-        
+        self.topSearchBar.hidden = false
+        self.isSearchBarActive = false
+        tableView.reloadData()
     }
     
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
-        if searchBar.tag == 0 {
-            searchBar.hidden = true
-            self.altSearchBar.frame = CGRect(origin: self.altSearchBar.frame.origin, size: CGSize(width: self.altSearchBar.frame.size.width, height: 44.0))
-            self.altSearchBar.transform = CGAffineTransformMakeScale(0.1, 0.1)
-            self.tableView.reloadData()
-            UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.2, initialSpringVelocity: 3.0, options: UIViewAnimationOptions.AllowUserInteraction, animations: { () -> Void in
-                self.altSearchBar.transform = CGAffineTransformIdentity
-                }) { (success:Bool) -> Void in
-                    self.altSearchBar.becomeFirstResponder()
-            }
+        if searchBar.tag == 3 {
+            self.topSearchBar.hidden = true
+            self.isSearchBarActive = true
+            tableView.reloadData()
         }
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        searchBarTapped()
     }
 }
