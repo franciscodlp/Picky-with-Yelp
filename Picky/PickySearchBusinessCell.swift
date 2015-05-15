@@ -43,6 +43,7 @@ class PickySearchBusinessCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        self.selectionStyle = UITableViewCellSelectionStyle.None
         self.accessoryType = UITableViewCellAccessoryType.None
         thumbImageView.layer.cornerRadius = 5
         thumbImageView.clipsToBounds = true

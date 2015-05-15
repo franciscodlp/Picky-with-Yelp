@@ -127,7 +127,7 @@
                     <navigationItem key="navigationItem" id="yDf-Kk-irs">
                         <barButtonItem key="leftBarButtonItem" title="Filters" id="k8h-lh-YsT">
                             <connections>
-                                <segue destination="iVv-8n-y0y" kind="modal" id="vhu-C1-F9Q"/>
+                                <segue destination="iVv-8n-y0y" kind="modal" identifier="filtersVCSegue" id="vhu-C1-F9Q"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Search" id="fGr-CY-iL2">
@@ -155,7 +155,49 @@
                     <view key="view" contentMode="scaleToFill" id="iEA-UV-X56">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="QfX-1z-2WC">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PickyFiltersCategoryCell" id="pfZ-CG-4T3" customClass="PickyFiltersCategoryCell" customModule="Picky" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pfZ-CG-4T3" id="Hjk-17-MOk">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Categories" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rVO-73-dbB">
+                                                    <rect key="frame" x="8" y="11" width="84" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KT7-ho-lOh">
+                                                    <rect key="frame" x="263" y="6" width="51" height="31"/>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="rVO-73-dbB" secondAttribute="centerY" id="Qx5-xl-RMl"/>
+                                                <constraint firstAttribute="trailing" secondItem="KT7-ho-lOh" secondAttribute="trailing" constant="8" id="VpL-6M-GbL"/>
+                                                <constraint firstAttribute="centerY" secondItem="KT7-ho-lOh" secondAttribute="centerY" id="aU1-Ny-nfm"/>
+                                                <constraint firstItem="rVO-73-dbB" firstAttribute="leading" secondItem="Hjk-17-MOk" secondAttribute="leading" constant="8" id="eYX-Cr-xxy"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="filterNameLabel" destination="rVO-73-dbB" id="0Lp-5L-BKc"/>
+                                            <outlet property="onFilterSwitch" destination="KT7-ho-lOh" id="CFO-vt-0Fe"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="QfX-1z-2WC" firstAttribute="top" secondItem="iEA-UV-X56" secondAttribute="top" id="7zk-gg-8kv"/>
+                            <constraint firstAttribute="trailing" secondItem="QfX-1z-2WC" secondAttribute="trailing" id="MF2-0s-G9l"/>
+                            <constraint firstItem="QfX-1z-2WC" firstAttribute="leading" secondItem="iEA-UV-X56" secondAttribute="leading" id="aXg-al-4t5"/>
+                            <constraint firstItem="rYa-gO-XLf" firstAttribute="top" secondItem="QfX-1z-2WC" secondAttribute="bottom" id="e2n-Rt-bin"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Picky Filters" id="ks0-hC-abc">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="wj7-JY-O7m">
@@ -163,12 +205,19 @@
                                 <action selector="onCancelButton:" destination="two-Qa-Msd" id="2jC-A1-c6v"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Search" id="FWO-9K-kCf"/>
+                        <barButtonItem key="rightBarButtonItem" title="Search" id="FWO-9K-kCf">
+                            <connections>
+                                <action selector="onSearchButton:" destination="two-Qa-Msd" id="0JD-Y0-I6n"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="QfX-1z-2WC" id="IZ3-GZ-Yad"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FOP-Dv-lic" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2135" y="-419"/>
+            <point key="canvasLocation" x="1920" y="-446"/>
         </scene>
         <!--Detail-->
         <scene sceneID="Ozi-iR-TwP">
@@ -187,9 +236,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HnL-gP-nI9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1603" y="212"/>
+            <point key="canvasLocation" x="1429" y="206"/>
         </scene>
-        <!--Item 2-->
+        <!--Favorites-->
         <scene sceneID="LoD-JM-sI1">
             <objects>
                 <viewController id="6cE-y5-K3A" sceneMemberID="viewController">
@@ -202,13 +251,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="acW-4T-lXD"/>
+                    <tabBarItem key="tabBarItem" title="Favorites" id="acW-4T-lXD"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E2M-En-oMc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="576" y="659"/>
         </scene>
-        <!--Item 1-->
+        <!--????-->
         <scene sceneID="1AZ-9Z-16j">
             <objects>
                 <viewController id="f7R-dr-Lip" sceneMemberID="viewController">
@@ -221,7 +270,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 1" id="NVU-hS-GSl"/>
+                    <tabBarItem key="tabBarItem" title="????" id="NVU-hS-GSl"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lMO-tt-qyl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -285,7 +334,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cZn-iS-j7i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1603" y="-419"/>
+            <point key="canvasLocation" x="1429" y="-446"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

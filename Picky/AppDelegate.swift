@@ -8,6 +8,8 @@
 
 import UIKit
 
+var restaurantCategories: [[String:String]]!
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -16,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        loadCategoriesFromYelp()
         return true
     }
 
@@ -40,7 +43,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
+    
+    func loadCategoriesFromYelp() {
+        var request = NSURLRequest(URL: NSURL(string: "https://s3-media2.fl.yelpcdn.com/assets/srv0/developer_pages/5e749b17ad6a/assets/json/categories.json")!)
+        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) { (response:NSURLResponse!, data:NSData!, error:NSError!) -> Void in
+            if error == nil {
+                var restaurantsCategoriesRaw = [[String:AnyObject]]()
+                var responseDictionary =  NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as! [NSDictionary]?
+                for category in responseDictionary! {
+                    var parents: [String]? = category["parents"]! as? [String]
+                    if let parents = parents {
+                        if contains(parents, "restaurants") {
+                            restaurantsCategoriesRaw.append(category as! [String:AnyObject])
+                        }
+                    }
+                }
+                restaurantCategories = [[String:String]]()
+                for category in restaurantsCategoriesRaw {
+                    var yelpCategory = [String:String]()
+                    yelpCategory["title"] = category["title"] as? String
+                    yelpCategory["alias"] = category["alias"] as? String
+                    restaurantCategories.append(yelpCategory)
+                }
+//                                println(restaurantsCategoriesRaw)
+//                                println(restaurantCategories)
+            } else {
+                println(error)
+            }
+        }
+    }
 
 }
 
