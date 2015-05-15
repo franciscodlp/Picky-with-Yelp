@@ -12,12 +12,13 @@ class PickySearchViewController: UIViewController, UITableViewDataSource, UITabl
     
     @IBOutlet var tableView: UITableView!
     
-    var businesses: [Business]!
-    var topSearchBar: UISearchBar!
-    var tableHeaderSearchBar: UISearchBar!
-    var isSearchBarActive = false
-    var tableViewRefreshControl: UIRefreshControl!
-    var loadingView: UIActivityIndicatorView!
+    private var businesses: [Business]!
+    private var topSearchBar: UISearchBar!
+    private var tableHeaderSearchBar: UISearchBar!
+    private var isSearchBarActive = false
+    private var tableViewRefreshControl: UIRefreshControl!
+    private var loadingView: UIActivityIndicatorView!
+
     
     struct Search {
         var term: String = "Restaurants"
@@ -29,15 +30,14 @@ class PickySearchViewController: UIViewController, UITableViewDataSource, UITabl
         var deals: Bool? = false
     }
     
-    var newSearch: Search!
-    var lastSearch: Search!
-    var lastSearchCount: Int!
+    private var newSearch: Search!
+    private var lastSearch: Search!
+    private var lastSearchCount: Int!
+    
+    private var filtersState: [String:AnyObject]!
     
     @IBAction func onSearchButton(sender: AnyObject) {
-        newSearch = lastSearch
-        newSearch.term = tableHeaderSearchBar.text
-        tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
-        searchBusinesses(search: newSearch)
+        searchButtonPressed()
     }
 
     override func viewDidLoad() {
@@ -154,6 +154,14 @@ class PickySearchViewController: UIViewController, UITableViewDataSource, UITabl
         }
     }
     
+    func searchButtonPressed() {
+        newSearch = lastSearch
+        newSearch.term = tableHeaderSearchBar.text
+        newSearch.offset = 0
+        tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
+        searchBusinesses(search: newSearch)
+    }
+    
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -162,6 +170,7 @@ class PickySearchViewController: UIViewController, UITableViewDataSource, UITabl
             let navigationController = segue.destinationViewController as! UINavigationController
             let filtersViewController = navigationController.topViewController as! PickyFiltersViewController
             filtersViewController.delegate = self
+            filtersViewController.filtersState = self.filtersState
         }
         
     }
@@ -236,25 +245,15 @@ extension PickySearchViewController: UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        newSearch = lastSearch
-        newSearch.term = tableHeaderSearchBar.text
-        newSearch.offset = 0
-        tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
-        searchBusinesses(search: newSearch)
+        searchButtonPressed()
     }
 }
 
 // MARK: PickyFiltersViewControllerDelegate
 extension PickySearchViewController: PickyFiltersViewControllerDelegate {
-    func pickyFiltersViewController(pickyFiltersViewController: PickyFiltersViewController, didUpdateFilters filters: [String : AnyObject]) {
+    func pickyFiltersViewController(pickyFiltersViewController: PickyFiltersViewController, didUpdateFilters filters: [String : AnyObject], withState filtersState: [String : AnyObject]) {
         
-//        var deals = filters["deals"] as? Bool
-//        println("Deals: \(deals)")
-//        var sortby = filters["sortby"] as? Int
-//        println("Sort by: \(sortby)")
-//        var distance = filters["distance"] as? Int
-//        println("Distance: \(distance)")
-        
+        self.filtersState = filtersState
         
         newSearch = Search(term: lastSearch.term, limit: lastSearch.limit, offset: lastSearch.offset, sortby: filters["sortby"] as? YelpSortMode, categories: filters["categories"] as? [String], radius: filters["distance"] as? Int, deals: filters["deals"] as? Bool)
         

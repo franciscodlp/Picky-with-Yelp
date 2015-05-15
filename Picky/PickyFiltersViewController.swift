@@ -9,7 +9,7 @@
 import UIKit
 
 @objc protocol PickyFiltersViewControllerDelegate {
-    optional func pickyFiltersViewController(pickyFiltersViewController: PickyFiltersViewController, didUpdateFilters filters: [String:AnyObject])
+    optional func pickyFiltersViewController(pickyFiltersViewController: PickyFiltersViewController, didUpdateFilters filters: [String:AnyObject], withState filtersState: [String:AnyObject])
     
 }
 
@@ -40,22 +40,32 @@ class PickyFiltersViewController: UIViewController, UITableViewDataSource, UITab
         if selectedCategories.count > 0 {
             filters["categories"] = selectedCategories
         }
+        
+        
+        // Save Filters State
+        var filtersState = [String:AnyObject]()
+        filtersState["deals"] = dealsSwitchStates
+        filtersState["sortby"] = sortbySwitchStates
+        filtersState["distance"] = distanceSwitchStates
+        filtersState["categories"] = categoriesSwitchStates
 
-        delegate?.pickyFiltersViewController!(self, didUpdateFilters: filters)
+        delegate?.pickyFiltersViewController!(self, didUpdateFilters: filters, withState: filtersState)
     }
 
     @IBOutlet var tableView: UITableView!
     
     weak var delegate: PickyFiltersViewControllerDelegate?
     
-    var categories: [[String:String]]!
+    private var categories: [[String:String]]!
     
-    var dealsSwitchStates = [Int:Bool]()
-    var sortbySwitchStates = [Int:Bool]()
-    var distanceSwitchStates = [Int:Bool]()
-    var categoriesSwitchStates = [Int:Bool]()
+    private var dealsSwitchStates = [Int:Bool]()
+    private var sortbySwitchStates = [Int:Bool]()
+    private var distanceSwitchStates = [Int:Bool]()
+    private var categoriesSwitchStates = [Int:Bool]()
     
-    var resetButton: UIButton!
+    var filtersState: [String:AnyObject]!
+    
+    private var resetButton: UIButton!
     
     
     override func viewDidLoad() {
@@ -72,6 +82,16 @@ class PickyFiltersViewController: UIViewController, UITableViewDataSource, UITab
         resetButton.addTarget(self, action: "resetFilters", forControlEvents: UIControlEvents.TouchUpInside)
         tableView.tableHeaderView = resetButton
         
+        dealsSwitchStates = filtersState?["deals"] as? [Int:Bool] ?? [Int:Bool]()
+        sortbySwitchStates = filtersState?["sortby"] as? [Int:Bool] ?? [Int:Bool]()
+        distanceSwitchStates = filtersState?["distance"] as? [Int:Bool] ?? [Int:Bool]()
+        categoriesSwitchStates = filtersState?["categories"] as? [Int:Bool] ?? [Int:Bool]()
+        tableView.reloadData()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
+
     }
     
     func resetFilters() {
@@ -79,6 +99,10 @@ class PickyFiltersViewController: UIViewController, UITableViewDataSource, UITab
         sortbySwitchStates = [Int:Bool]()
         distanceSwitchStates = [Int:Bool]()
         categoriesSwitchStates = [Int:Bool]()
+        filtersState["deals"] = dealsSwitchStates
+        filtersState["sortby"] = sortbySwitchStates
+        filtersState["distance"] = distanceSwitchStates
+        filtersState["categories"] = categoriesSwitchStates
         tableView.reloadData()
     }
     
