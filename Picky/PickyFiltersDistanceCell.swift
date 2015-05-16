@@ -10,6 +10,8 @@ import UIKit
 
 class PickyFiltersDistanceCell: UITableViewCell {
 
+    @IBOutlet var filterNameLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

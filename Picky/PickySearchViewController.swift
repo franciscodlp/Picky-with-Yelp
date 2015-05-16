@@ -156,7 +156,7 @@ class PickySearchViewController: UIViewController, UITableViewDataSource, UITabl
     
     func searchButtonPressed() {
         newSearch = lastSearch
-        newSearch.term = tableHeaderSearchBar.text
+        newSearch.term = tableHeaderSearchBar.text == "" ? "Restaurants" : tableHeaderSearchBar.text
         newSearch.offset = 0
         tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
         searchBusinesses(search: newSearch)
@@ -255,17 +255,20 @@ extension PickySearchViewController: PickyFiltersViewControllerDelegate {
         
         self.filtersState = filtersState
         
-        newSearch = Search(term: lastSearch.term, limit: lastSearch.limit, offset: lastSearch.offset, sortby: filters["sortby"] as? YelpSortMode, categories: filters["categories"] as? [String], radius: filters["distance"] as? Int, deals: filters["deals"] as? Bool)
+        newSearch = Search(term: lastSearch.term, limit: lastSearch.limit, offset: 0, sortby: filters["sortby"] as? YelpSortMode, categories: filters["categories"] as? [String], radius: filters["distance"] as? Int, deals: filters["deals"] as? Bool)
         
-        
+        tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
+        MRProgressOverlayView.showOverlayAddedTo(self.view, title: "", mode: MRProgressOverlayViewMode.Indeterminate, animated: true)
         Business.searchWithTerm(newSearch.term, limit: newSearch.limit, offset: newSearch.offset, sort: newSearch.sortby, categories: newSearch.categories, radius: newSearch.radius, deals: newSearch.deals) { (businesses:[Business]!, error:NSError!) -> Void in
             if error == nil {
                 self.lastSearch = self.newSearch
                 self.businesses = businesses
                 self.lastSearchCount = businesses.count
                 businesses.count < 20 ? self.loadingView.stopAnimating() : self.loadingView.startAnimating()
+                MRProgressOverlayView.dismissOverlayForView(self.view, animated: true)
                 self.tableView.reloadData()
             } else {
+                MRProgressOverlayView.dismissOverlayForView(self.view, animated: true)
                 println(error)
             }
         }
