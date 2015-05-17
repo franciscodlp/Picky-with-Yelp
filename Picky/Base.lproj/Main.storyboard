@@ -488,7 +488,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Favorites" id="acW-4T-lXD"/>
+                    <tabBarItem key="tabBarItem" title="Favorites" image="heart" id="acW-4T-lXD"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E2M-En-oMc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -563,7 +563,7 @@
         <scene sceneID="WOe-9f-Yll">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LIO-Dh-neU" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Search" id="vM5-W5-Mh7"/>
+                    <tabBarItem key="tabBarItem" title="Search" image="list" id="vM5-W5-Mh7"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="pQg-0V-Zrk">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -603,7 +603,7 @@
         <scene sceneID="o6d-a2-Ewe">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iOm-q8-sbm" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Map VIew" id="NVU-hS-GSl"/>
+                    <tabBarItem key="tabBarItem" title="Map VIew" image="globe2" id="NVU-hS-GSl"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="NiB-Ag-DVp">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -626,6 +626,9 @@
         <image name="SwitchButtonOff" width="52" height="35"/>
         <image name="SwitchbuttonOn" width="52" height="35"/>
         <image name="downArrow" width="24" height="24"/>
+        <image name="globe2" width="32" height="32"/>
+        <image name="heart" width="32" height="32"/>
+        <image name="list" width="32" height="32"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -633,7 +636,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="vhu-C1-F9Q"/>
-        <segue reference="Zfw-zT-RRN"/>
+        <segue reference="b6v-8D-HXY"/>
+        <segue reference="SB3-0d-4JE"/>
     </inferredMetricsTieBreakers>
 </document>

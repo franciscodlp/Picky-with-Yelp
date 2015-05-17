@@ -61,6 +61,17 @@ class PickyMapViewController: UIViewController, UISearchBarDelegate, PickyFilter
         super.viewDidLoad()
         
         searchBar = UISearchBar()
+        searchBar.tintColor = UIColor(red: (245.0 / 255.0), green: (166.0 / 255.0), blue: (35.0 / 255.0), alpha: 1)
+        
+        self.tabBarController?.tabBar.tintColor = UIColor(red: (90.0 / 255.0), green: (95.0 / 255.0), blue: (85.0 / 255.0), alpha: 1)
+        self.tabBarController?.tabBar.barTintColor = UIColor(red: (90.0 / 255.0), green: (95.0 / 255.0), blue: (85.0 / 255.0), alpha: 1)
+        self.tabBarController?.tabBar.tintColor = UIColor(red: (245.0 / 255.0), green: (166.0 / 255.0), blue: (35.0 / 255.0), alpha: 1)
+        
+        self.navigationController?.navigationBar.backgroundColor = UIColor(red: (90.0 / 255.0), green: (95.0 / 255.0), blue: (85.0 / 255.0), alpha: 1)
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: (90.0 / 255.0), green: (95.0 / 255.0), blue: (85.0 / 255.0), alpha: 1)
+        self.navigationController?.navigationBar.tintColor = UIColor(red: (245.0 / 255.0), green: (166.0 / 255.0), blue: (35.0 / 255.0), alpha: 1)
+        
+        searchBar = UISearchBar()
         searchBar.delegate = self
         self.navigationItem.titleView = searchBar
         
