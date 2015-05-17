@@ -28,13 +28,14 @@ class PickySearchViewController: UIViewController, UITableViewDataSource, UITabl
         var categories: [String]? = nil
         var radius: Int? = 10000
         var deals: Bool? = false
+        var location: String? = nil
     }
     
     private var newSearch: Search!
     private var lastSearch: Search!
     private var lastSearchCount: Int!
     
-    private var filtersState: [String:AnyObject]!
+    var filtersState: [String:AnyObject]!
     
     @IBAction func onSearchButton(sender: AnyObject) {
         searchButtonPressed()
@@ -59,7 +60,7 @@ class PickySearchViewController: UIViewController, UITableViewDataSource, UITabl
         
         newSearch = Search()
         MRProgressOverlayView.showOverlayAddedTo(self.view, title: "", mode: MRProgressOverlayViewMode.Indeterminate, animated: true)
-        Business.searchWithTerm(newSearch.term, limit: newSearch.limit, offset: newSearch.offset, sort: newSearch.sortby, categories: newSearch.categories, radius: newSearch.radius, deals: newSearch.deals) { (businesses:[Business]!, error:NSError!) -> Void in
+        Business.searchWithTerm(newSearch.term, limit: newSearch.limit, offset: newSearch.offset, sort: newSearch.sortby, categories: newSearch.categories, radius: newSearch.radius, deals: newSearch.deals, location: newSearch.location) { (businesses:[Business]!, error:NSError!) -> Void in
             if error == nil {
                 self.lastSearch = self.newSearch
                 self.businesses = businesses
@@ -69,9 +70,7 @@ class PickySearchViewController: UIViewController, UITableViewDataSource, UITabl
                 MRProgressOverlayView.dismissOverlayForView(self.view, animated: true)
             } else {
                 MRProgressOverlayView.dismissOverlayForView(self.view, animated: true)
-                println("ERRRRRRRRRRRRR")
                 println(error)
-                println("ERRRRRRRRRRRRR")
             }
         }
         
@@ -112,7 +111,7 @@ class PickySearchViewController: UIViewController, UITableViewDataSource, UITabl
         self.topSearchBar.resignFirstResponder()
         newSearch = lastSearch
         newSearch.offset = 0
-        Business.searchWithTerm(newSearch.term, limit: newSearch.limit, offset: newSearch.offset, sort: newSearch.sortby, categories: newSearch.categories, radius: newSearch.radius, deals: newSearch.deals) { (businesses:[Business]!, error:NSError!) -> Void in
+        Business.searchWithTerm(newSearch.term, limit: newSearch.limit, offset: newSearch.offset, sort: newSearch.sortby, categories: newSearch.categories, radius: newSearch.radius, deals: newSearch.deals, location: newSearch.location) { (businesses:[Business]!, error:NSError!) -> Void in
             if error == nil {
                 self.tableViewRefreshControl.endRefreshing()
                 self.businesses = businesses
@@ -136,7 +135,7 @@ class PickySearchViewController: UIViewController, UITableViewDataSource, UITabl
         }
         
         newSearch = search
-        Business.searchWithTerm(newSearch.term, limit: newSearch.limit, offset: newSearch.offset, sort: newSearch.sortby, categories: newSearch.categories, radius: newSearch.radius, deals: newSearch.deals) { (businesses:[Business]!, error:NSError!) -> Void in
+        Business.searchWithTerm(newSearch.term, limit: newSearch.limit, offset: newSearch.offset, sort: newSearch.sortby, categories: newSearch.categories, radius: newSearch.radius, deals: newSearch.deals, location: newSearch.location) { (businesses:[Business]!, error:NSError!) -> Void in
             if error == nil {
                 println("Offset: \(search.offset)")
                 self.lastSearch = search
@@ -166,7 +165,7 @@ class PickySearchViewController: UIViewController, UITableViewDataSource, UITabl
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "filtersVCSegue" {
+        if segue.identifier == "SearchFiltersSegue" {
             let navigationController = segue.destinationViewController as! UINavigationController
             let filtersViewController = navigationController.topViewController as! PickyFiltersViewController
             filtersViewController.delegate = self
@@ -254,12 +253,13 @@ extension PickySearchViewController: PickyFiltersViewControllerDelegate {
     func pickyFiltersViewController(pickyFiltersViewController: PickyFiltersViewController, didUpdateFilters filters: [String : AnyObject], withState filtersState: [String : AnyObject]) {
         
         self.filtersState = filtersState
+        (self.tabBarController!.viewControllers![0].topViewController as? PickyMapViewController)?.filtersState = filtersState
         
-        newSearch = Search(term: lastSearch.term, limit: lastSearch.limit, offset: 0, sortby: filters["sortby"] as? YelpSortMode, categories: filters["categories"] as? [String], radius: filters["distance"] as? Int, deals: filters["deals"] as? Bool)
+        newSearch = Search(term: lastSearch.term, limit: lastSearch.limit, offset: 0, sortby: filters["sortby"] as? YelpSortMode, categories: filters["categories"] as? [String], radius: filters["distance"] as? Int, deals: filters["deals"] as? Bool,  location: lastSearch.location)
         
         tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
         MRProgressOverlayView.showOverlayAddedTo(self.view, title: "", mode: MRProgressOverlayViewMode.Indeterminate, animated: true)
-        Business.searchWithTerm(newSearch.term, limit: newSearch.limit, offset: newSearch.offset, sort: newSearch.sortby, categories: newSearch.categories, radius: newSearch.radius, deals: newSearch.deals) { (businesses:[Business]!, error:NSError!) -> Void in
+        Business.searchWithTerm(newSearch.term, limit: newSearch.limit, offset: newSearch.offset, sort: newSearch.sortby, categories: newSearch.categories, radius: newSearch.radius, deals: newSearch.deals, location: newSearch.location) { (businesses:[Business]!, error:NSError!) -> Void in
             if error == nil {
                 self.lastSearch = self.newSearch
                 self.businesses = businesses
@@ -272,5 +272,10 @@ extension PickySearchViewController: PickyFiltersViewControllerDelegate {
                 println(error)
             }
         }
+    }
+    
+    func pickyFiltersViewController(pickyFiltersViewController: PickyFiltersViewController, didResetFilters filtersState: [String : AnyObject]) {
+        self.filtersState = filtersState
+        (self.tabBarController!.viewControllers![0].topViewController as? PickyMapViewController)?.filtersState = filtersState
     }
 }

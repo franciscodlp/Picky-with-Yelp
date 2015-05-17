@@ -43,5 +43,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Picky always need to know your location</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Picky wants to know your current location</string>
 </dict>
 </plist>

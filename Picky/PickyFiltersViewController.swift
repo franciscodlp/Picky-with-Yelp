@@ -11,6 +11,8 @@ import UIKit
 @objc protocol PickyFiltersViewControllerDelegate {
     optional func pickyFiltersViewController(pickyFiltersViewController: PickyFiltersViewController, didUpdateFilters filters: [String:AnyObject], withState filtersState: [String:AnyObject])
     
+    optional func pickyFiltersViewController(pickyFiltersViewController: PickyFiltersViewController, didResetFilters filtersState: [String:AnyObject])
+    
 }
 
 
@@ -35,10 +37,9 @@ class PickyFiltersViewController: UIViewController, UITableViewDataSource, UITab
         if selectedCategories.count > 0 {
             filters["categories"] = selectedCategories
         }
-        
-        
+
         // Save Filters State
-        var filtersState = [String:AnyObject]()
+        filtersState = [String:AnyObject]()
         filtersState["deals"] = dealsSwitchState
         filtersState["sortby"] = sortbyState
         filtersState["distance"] = distanceState
@@ -112,6 +113,7 @@ class PickyFiltersViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     func resetFilters() {
+        
         dealsSwitchState = false
         sortbyState = YelpSortMode.BestMatched.rawValue
         distanceState = 0
@@ -125,6 +127,7 @@ class PickyFiltersViewController: UIViewController, UITableViewDataSource, UITab
         shouldExpandSortBy = false
         resetControl.endRefreshing()
         tableView.reloadData()
+        delegate?.pickyFiltersViewController!(self, didResetFilters: filtersState)
     }
     
     

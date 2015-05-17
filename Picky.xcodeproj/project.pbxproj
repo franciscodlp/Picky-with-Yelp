@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		1666D1461B066C56004AE1DF /* PickyFiltersExpandableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1666D1451B066C56004AE1DF /* PickyFiltersExpandableCell.swift */; };
 		1666D1481B07BF44004AE1DF /* PickyFiltersSeeAllCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1666D1471B07BF44004AE1DF /* PickyFiltersSeeAllCell.swift */; };
+		1666D14A1B07DCB2004AE1DF /* PickyMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1666D1491B07DCB2004AE1DF /* PickyMapViewController.swift */; };
+		1666D14C1B07E8A4004AE1DF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1666D14B1B07E8A4004AE1DF /* CoreLocation.framework */; };
+		1666D14E1B07E8AD004AE1DF /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1666D14D1B07E8AD004AE1DF /* MapKit.framework */; };
 		16AE2F7D1B0533070005F343 /* PickyFiltersCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AE2F7C1B0533070005F343 /* PickyFiltersCategoryCell.swift */; };
 		16AE2F7F1B056B740005F343 /* PickyFiltersDealsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AE2F7E1B056B740005F343 /* PickyFiltersDealsCell.swift */; };
 		16AE2F811B056B890005F343 /* PickyFiltersDistanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AE2F801B056B890005F343 /* PickyFiltersDistanceCell.swift */; };
@@ -39,6 +42,9 @@
 /* Begin PBXFileReference section */
 		1666D1451B066C56004AE1DF /* PickyFiltersExpandableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickyFiltersExpandableCell.swift; sourceTree = "<group>"; };
 		1666D1471B07BF44004AE1DF /* PickyFiltersSeeAllCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickyFiltersSeeAllCell.swift; sourceTree = "<group>"; };
+		1666D1491B07DCB2004AE1DF /* PickyMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickyMapViewController.swift; sourceTree = "<group>"; };
+		1666D14B1B07E8A4004AE1DF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		1666D14D1B07E8AD004AE1DF /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		16AE2F7C1B0533070005F343 /* PickyFiltersCategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickyFiltersCategoryCell.swift; sourceTree = "<group>"; };
 		16AE2F7E1B056B740005F343 /* PickyFiltersDealsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickyFiltersDealsCell.swift; sourceTree = "<group>"; };
 		16AE2F801B056B890005F343 /* PickyFiltersDistanceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickyFiltersDistanceCell.swift; sourceTree = "<group>"; };
@@ -68,6 +74,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1666D14E1B07E8AD004AE1DF /* MapKit.framework in Frameworks */,
+				1666D14C1B07E8A4004AE1DF /* CoreLocation.framework in Frameworks */,
 				D59E7EEBCF85D0E14FF4C48F /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -171,6 +179,7 @@
 			children = (
 				16D0ED081B0417FC0053CC05 /* PickySearchViewController.swift */,
 				16D0ED0A1B04182F0053CC05 /* PickyFiltersViewController.swift */,
+				1666D1491B07DCB2004AE1DF /* PickyMapViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -186,6 +195,8 @@
 		56689A2F4F9B7027EA9F7F60 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1666D14D1B07E8AD004AE1DF /* MapKit.framework */,
+				1666D14B1B07E8A4004AE1DF /* CoreLocation.framework */,
 				9DB578B3E1157497B93BD057 /* libPods.a */,
 			);
 			name = Frameworks;
@@ -336,6 +347,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1666D1461B066C56004AE1DF /* PickyFiltersExpandableCell.swift in Sources */,
+				1666D14A1B07DCB2004AE1DF /* PickyMapViewController.swift in Sources */,
 				16AE2F7F1B056B740005F343 /* PickyFiltersDealsCell.swift in Sources */,
 				1666D1481B07BF44004AE1DF /* PickyFiltersSeeAllCell.swift in Sources */,
 				16AE2F7D1B0533070005F343 /* PickyFiltersCategoryCell.swift in Sources */,
