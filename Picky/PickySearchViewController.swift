@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import CoreLocation
+import MapKit
 
 class PickySearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, PickyFiltersViewControllerDelegate {
     
     @IBOutlet var tableView: UITableView!
     
     private var businesses: [Business]!
+    private var selectedBusiness: Business!
     private var topSearchBar: UISearchBar!
     private var tableHeaderSearchBar: UISearchBar!
     private var isSearchBarActive = false
@@ -34,6 +37,8 @@ class PickySearchViewController: UIViewController, UITableViewDataSource, UITabl
     private var newSearch: Search!
     private var lastSearch: Search!
     private var lastSearchCount: Int!
+    
+    var currentUserLocation: String!
     
     var filtersState: [String:AnyObject]!
     
@@ -59,6 +64,7 @@ class PickySearchViewController: UIViewController, UITableViewDataSource, UITabl
         tableView.tableFooterView = tableFooterView
         
         newSearch = Search()
+        newSearch.location = currentUserLocation ?? "37.785771,-122.406165"
         MRProgressOverlayView.showOverlayAddedTo(self.view, title: "", mode: MRProgressOverlayViewMode.Indeterminate, animated: true)
         Business.searchWithTerm(newSearch.term, limit: newSearch.limit, offset: newSearch.offset, sort: newSearch.sortby, categories: newSearch.categories, radius: newSearch.radius, deals: newSearch.deals, location: newSearch.location) { (businesses:[Business]!, error:NSError!) -> Void in
             if error == nil {
@@ -111,6 +117,7 @@ class PickySearchViewController: UIViewController, UITableViewDataSource, UITabl
         self.topSearchBar.resignFirstResponder()
         newSearch = lastSearch
         newSearch.offset = 0
+        newSearch.location = currentUserLocation ?? "37.785771,-122.406165"
         Business.searchWithTerm(newSearch.term, limit: newSearch.limit, offset: newSearch.offset, sort: newSearch.sortby, categories: newSearch.categories, radius: newSearch.radius, deals: newSearch.deals, location: newSearch.location) { (businesses:[Business]!, error:NSError!) -> Void in
             if error == nil {
                 self.tableViewRefreshControl.endRefreshing()
@@ -135,6 +142,7 @@ class PickySearchViewController: UIViewController, UITableViewDataSource, UITabl
         }
         
         newSearch = search
+        newSearch.location = currentUserLocation ?? "37.785771,-122.406165"
         Business.searchWithTerm(newSearch.term, limit: newSearch.limit, offset: newSearch.offset, sort: newSearch.sortby, categories: newSearch.categories, radius: newSearch.radius, deals: newSearch.deals, location: newSearch.location) { (businesses:[Business]!, error:NSError!) -> Void in
             if error == nil {
                 println("Offset: \(search.offset)")
@@ -170,6 +178,9 @@ class PickySearchViewController: UIViewController, UITableViewDataSource, UITabl
             let filtersViewController = navigationController.topViewController as! PickyFiltersViewController
             filtersViewController.delegate = self
             filtersViewController.filtersState = self.filtersState
+        } else if segue.identifier == "ListToDetails" {
+            let detailsViewController = segue.destinationViewController as! PickyDetailsViewController
+            detailsViewController.business = selectedBusiness
         }
         
     }
@@ -208,6 +219,10 @@ extension PickySearchViewController: UITableViewDataSource {
 
 extension PickySearchViewController: UITableViewDelegate {
     
+    func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
+        selectedBusiness = businesses[indexPath.row]
+        return indexPath
+    }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
@@ -279,3 +294,5 @@ extension PickySearchViewController: PickyFiltersViewControllerDelegate {
         (self.tabBarController!.viewControllers![0].topViewController as? PickyMapViewController)?.filtersState = filtersState
     }
 }
+
+

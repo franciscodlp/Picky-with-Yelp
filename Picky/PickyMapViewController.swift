@@ -10,6 +10,18 @@ import UIKit
 import MapKit
 import CoreLocation
 
+class PickyAnnotation : NSObject, MKAnnotation {
+    var coordinate: CLLocationCoordinate2D
+    var title: String!
+    var subtitle: String!
+    var business: Business!
+    init(coordinate: CLLocationCoordinate2D, title: String, subtitle: String, business: Business) {
+        self.coordinate = coordinate
+        self.title = title
+        self.subtitle = subtitle
+        self.business = business
+    }
+}
 
 
 class PickyMapViewController: UIViewController, UISearchBarDelegate, PickyFiltersViewControllerDelegate, MKMapViewDelegate, CLLocationManagerDelegate {
@@ -29,6 +41,7 @@ class PickyMapViewController: UIViewController, UISearchBarDelegate, PickyFilter
         var deals: Bool? = false
         var location: String? = nil
     }
+    
     
     var businesses: [Business]!
     
@@ -117,16 +130,24 @@ class PickyMapViewController: UIViewController, UISearchBarDelegate, PickyFilter
     
     func loadAnnotationsToMap(businesses: [Business]?) {
         if businesses != nil {
-            var annotations: [MKPointAnnotation] = [MKPointAnnotation]()
+            var annotations: [PickyAnnotation] = [PickyAnnotation]()
             for singleBusiness in businesses! {
-                var annotation = MKPointAnnotation()
-                annotation.coordinate = CLLocationCoordinate2D(latitude: singleBusiness.coordinate!["latitude"] as! CLLocationDegrees, longitude: singleBusiness.coordinate!["longitude"] as! CLLocationDegrees)
-                annotation.title = singleBusiness.name!
-                annotation.subtitle = singleBusiness.categories!
-                annotations.append(annotation)
+                var pickyAnnotation = PickyAnnotation(coordinate: CLLocationCoordinate2D(latitude: singleBusiness.coordinate!["latitude"] as! CLLocationDegrees, longitude: singleBusiness.coordinate!["longitude"] as! CLLocationDegrees),
+                    title: singleBusiness.name!,
+                    subtitle: singleBusiness.categories!, business: singleBusiness)
+                annotations.append(pickyAnnotation)
             }
             mapView.addAnnotations(annotations)
         }
+    }
+    
+    func goToDetails(sender: UIButton) {
+        var biz = ((sender.superview!.superview!.superview!.superview!.superview!.superview!.superview!.superview! as! MKAnnotationView).annotation as! PickyAnnotation).business
+        println(biz.name)
+        var detailVC = self.storyboard?.instantiateViewControllerWithIdentifier("detailsViewController") as! PickyDetailsViewController
+        detailVC.business = biz
+        self.navigationController?.pushViewController(detailVC, animated: true)
+        
     }
 
     // MARK: - Navigation
@@ -138,6 +159,8 @@ class PickyMapViewController: UIViewController, UISearchBarDelegate, PickyFilter
             let filtersViewController = navigationController.topViewController as! PickyFiltersViewController
             filtersViewController.delegate = self
             filtersViewController.filtersState = self.filtersState
+        } else if segue.identifier == "MapToDetails" {
+            println("YES!!!!")
         }
     }
 
@@ -198,6 +221,7 @@ extension PickyMapViewController: MKMapViewDelegate {
     func mapView(mapView: MKMapView!, didUpdateUserLocation userLocation: MKUserLocation!) {
         
         currentUserLocation = "\(userLocation.coordinate.latitude),\(userLocation.coordinate.longitude)"
+        (self.tabBarController!.viewControllers![1].topViewController as? PickySearchViewController)?.currentUserLocation = currentUserLocation
         
         if shouldUpdateSearchOnUserLocationUpdate! {
             shouldUpdateSearchOnUserLocationUpdate = false
@@ -206,6 +230,25 @@ extension PickyMapViewController: MKMapViewDelegate {
             searchBusinesses(search: newSearch)
 
         }
+    }
+    
+    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+        var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier("annotationView") as? MKPinAnnotationView
+        
+        if annotationView == nil {
+            var newAnnotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "annotationView")
+            newAnnotationView.image = UIImage(named: "Pin1")
+//            newAnnotationView.pinColor = MKPinAnnotationColor.Green
+            newAnnotationView.canShowCallout = true
+            var callOutButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+            callOutButton.backgroundColor = UIColor.grayColor()
+            callOutButton.setImage(UIImage(named: "downArrow"), forState: UIControlState.Normal)
+            callOutButton.addTarget(self, action: "goToDetails:", forControlEvents: UIControlEvents.TouchUpInside)
+            newAnnotationView.rightCalloutAccessoryView = callOutButton
+            annotationView = newAnnotationView
+        }
+
+        return annotationView
     }
     
 }

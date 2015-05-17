@@ -35,8 +35,12 @@ class PickyFiltersCategoryCell: UITableViewCell {
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        onFilterSwitch.onImage = UIImage(named: "SwitchbuttonOn")
+        onFilterSwitch.offImage = UIImage(named: "SwitchbuttonOff")
+        
+        onFilterSwitch.thumbTintColor = UIColor(patternImage: UIImage(named: "SwitchKnob")!)
         // Configure the view for the selected state
+        
     }
     
     

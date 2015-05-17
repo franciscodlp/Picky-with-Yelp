@@ -150,7 +150,7 @@ extension PickyFiltersViewController: UITableViewDelegate {
         
         if indexPath.section == 1 && indexPath.row == 0 && shouldExpandSortBy == false {
             println("Cell Tapped")
-            (tableView.cellForRowAtIndexPath(indexPath) as! PickyFiltersExpandableCell).iconImageView.image = UIImage(named: "circleChecked")
+            (tableView.cellForRowAtIndexPath(indexPath) as! PickyFiltersExpandableCell).iconImageView.image = UIImage(named: "CheckMarkOrange")
             var indexPathArray = [NSIndexPath(forRow: 1, inSection: indexPath.section),
                                   NSIndexPath(forRow: 2, inSection: indexPath.section),
                                   NSIndexPath(forRow: 3, inSection: indexPath.section)]
@@ -171,7 +171,7 @@ extension PickyFiltersViewController: UITableViewDelegate {
             
         } else if indexPath.section == 2 && indexPath.row == 0 && shouldExpandDistance == false {
             println("Cell Tapped")
-            (tableView.cellForRowAtIndexPath(indexPath) as! PickyFiltersExpandableCell).iconImageView.image = UIImage(named: "circleChecked")
+            (tableView.cellForRowAtIndexPath(indexPath) as! PickyFiltersExpandableCell).iconImageView.image = UIImage(named: "CheckMarkOrange")
             var indexPathArray = [NSIndexPath(forRow: 1, inSection: indexPath.section),
                 NSIndexPath(forRow: 2, inSection: indexPath.section),
                 NSIndexPath(forRow: 3, inSection: indexPath.section),

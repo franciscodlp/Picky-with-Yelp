@@ -13,15 +13,16 @@ class Business: NSObject {
     let name: String?
     let imageURL: NSURL?
     let address: String?
+    let addressArray: [String]?
     let categories: String?
     let distance: String?
     let ratingImageURL: NSURL?
     let reviewCount: NSNumber?
     let deals: Bool?
     let coordinate: NSDictionary?
+    let phone: String?
     
     init(dictionary: NSDictionary) {
-        
         yelpID = dictionary["id"] as? String
         
         name = dictionary["name"] as? String
@@ -32,9 +33,11 @@ class Business: NSObject {
         } else {
             imageURL = nil
         }
-        
+        self.phone = dictionary["phone"] as? String
+        println(self.phone)
         let location = dictionary["location"] as? NSDictionary
         var address = ""
+        var displayAddress = [String]()
         if location != nil {
             let locationCoordinate = location!["coordinate"] as? NSDictionary
             if locationCoordinate != nil {
@@ -49,6 +52,14 @@ class Business: NSObject {
                 address = addressArray![0] as! String
             }
             
+            let addressTempArray = location!["display_address"] as? [String]
+            
+            if addressTempArray != nil {
+                for line in addressTempArray! {
+                    displayAddress.append(line)
+                }
+            }
+            
             var neighborhoods = location!["neighborhoods"] as? NSArray
             if neighborhoods != nil && neighborhoods!.count > 0 {
                 if !address.isEmpty {
@@ -59,9 +70,9 @@ class Business: NSObject {
         } else {
             coordinate = nil
         }
-        println(coordinate!)
+
         self.address = address
-        
+        self.addressArray = displayAddress
         
         let categoriesArray = dictionary["categories"] as? [[String]]
         if categoriesArray != nil {
