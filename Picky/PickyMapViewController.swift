@@ -160,7 +160,7 @@ class PickyMapViewController: UIViewController, UISearchBarDelegate, PickyFilter
             filtersViewController.delegate = self
             filtersViewController.filtersState = self.filtersState
         } else if segue.identifier == "MapToDetails" {
-            println("YES!!!!")
+
         }
     }
 
@@ -228,6 +228,13 @@ extension PickyMapViewController: MKMapViewDelegate {
             mapView.setCenterCoordinate(userLocation.coordinate, animated: true)
             newSearch = lastSearch ?? Search()
             searchBusinesses(search: newSearch)
+            
+            var userLocationAnnotation = MKPointAnnotation()
+            userLocationAnnotation.coordinate = userLocation.coordinate
+            userLocationAnnotation.title = "You"
+            mapView.addAnnotation(userLocationAnnotation)
+            
+            mapView.showsUserLocation = false
 
         }
     }
@@ -235,14 +242,19 @@ extension PickyMapViewController: MKMapViewDelegate {
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
         var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier("annotationView") as? MKPinAnnotationView
         
+        if annotation.title == "You" {
+            var newAnnotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "UserPin")
+            newAnnotationView.pinColor = MKPinAnnotationColor.Red
+            newAnnotationView.canShowCallout = false
+            return newAnnotationView
+        }
+        
         if annotationView == nil {
             var newAnnotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "annotationView")
             newAnnotationView.image = UIImage(named: "Pin1")
-//            newAnnotationView.pinColor = MKPinAnnotationColor.Green
             newAnnotationView.canShowCallout = true
-            var callOutButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-            callOutButton.backgroundColor = UIColor.grayColor()
-            callOutButton.setImage(UIImage(named: "downArrow"), forState: UIControlState.Normal)
+            var callOutButton = UIButton(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
+            callOutButton.setImage(UIImage(named: "rightArrow"), forState: UIControlState.Normal)
             callOutButton.addTarget(self, action: "goToDetails:", forControlEvents: UIControlEvents.TouchUpInside)
             newAnnotationView.rightCalloutAccessoryView = callOutButton
             annotationView = newAnnotationView

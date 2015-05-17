@@ -357,50 +357,56 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="273"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First Street Cafe" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bB2-D2-LQA">
-                                                <rect key="frame" x="0.0" y="8" width="320" height="27"/>
+                                                <rect key="frame" x="0.0" y="15" width="320" height="27"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Categories" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vWV-f3-O3x">
-                                                <rect key="frame" x="0.0" y="40" width="320" height="18"/>
+                                                <rect key="frame" x="0.0" y="47" width="320" height="18"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9V1-vB-dIx">
-                                                <rect key="frame" x="77" y="68" width="166" height="30"/>
+                                                <rect key="frame" x="77" y="75" width="166" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="166" id="0fb-6l-b8W"/>
                                                     <constraint firstAttribute="height" constant="30" id="qr2-Hd-aHS"/>
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="number of reviews" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yKA-2w-d7z">
-                                                <rect key="frame" x="0.0" y="103" width="320" height="12"/>
+                                                <rect key="frame" x="0.0" y="110" width="320" height="12"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address line 2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gzm-Kh-qU3">
-                                                <rect key="frame" x="0.0" y="156" width="320" height="21"/>
+                                                <rect key="frame" x="0.0" y="163" width="320" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address line 1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gRJ-wa-5lT">
-                                                <rect key="frame" x="0.0" y="130" width="320" height="21"/>
+                                                <rect key="frame" x="0.0" y="137" width="320" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ca-n1-6p1">
-                                                <rect key="frame" x="143" y="197" width="35" height="36"/>
+                                                <rect key="frame" x="77" y="197" width="35" height="36"/>
                                                 <state key="normal" image="PhoneIcon">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="onCallButton:" destination="jJ8-dF-Ltv" eventType="touchUpInside" id="Prz-PI-1hg"/>
                                                 </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VLv-Zt-D0G">
+                                                <rect key="frame" x="208" y="197" width="35" height="36"/>
+                                                <state key="normal" image="LikeIcon">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -410,7 +416,7 @@
                                             <constraint firstAttribute="centerX" secondItem="bB2-D2-LQA" secondAttribute="centerX" id="5Tt-N2-9U7"/>
                                             <constraint firstAttribute="centerX" secondItem="yKA-2w-d7z" secondAttribute="centerX" id="9ky-tS-oL0"/>
                                             <constraint firstItem="vWV-f3-O3x" firstAttribute="top" secondItem="bB2-D2-LQA" secondAttribute="bottom" constant="5" id="AeB-tP-elR"/>
-                                            <constraint firstItem="bB2-D2-LQA" firstAttribute="top" secondItem="8aE-LV-X2j" secondAttribute="top" constant="8" id="D3l-cy-TC9"/>
+                                            <constraint firstItem="bB2-D2-LQA" firstAttribute="top" secondItem="8aE-LV-X2j" secondAttribute="top" constant="15" id="D3l-cy-TC9"/>
                                             <constraint firstAttribute="trailing" secondItem="bB2-D2-LQA" secondAttribute="trailing" id="HGt-wB-Zt3"/>
                                             <constraint firstItem="gzm-Kh-qU3" firstAttribute="top" secondItem="gRJ-wa-5lT" secondAttribute="bottom" constant="5" id="I5t-84-Axz"/>
                                             <constraint firstAttribute="trailing" secondItem="yKA-2w-d7z" secondAttribute="trailing" id="M0C-uL-Sbp"/>
@@ -615,6 +621,7 @@
     </scenes>
     <resources>
         <image name="CheckMarkEmpty" width="26" height="26"/>
+        <image name="LikeIcon" width="35" height="36"/>
         <image name="PhoneIcon" width="35" height="36"/>
         <image name="SwitchButtonOff" width="52" height="35"/>
         <image name="SwitchbuttonOn" width="52" height="35"/>

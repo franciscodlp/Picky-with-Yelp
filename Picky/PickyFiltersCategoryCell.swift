@@ -38,7 +38,11 @@ class PickyFiltersCategoryCell: UITableViewCell {
         onFilterSwitch.onImage = UIImage(named: "SwitchbuttonOn")
         onFilterSwitch.offImage = UIImage(named: "SwitchbuttonOff")
         
-        onFilterSwitch.thumbTintColor = UIColor(patternImage: UIImage(named: "SwitchKnob")!)
+//        onFilterSwitch.thumbTintColor = UIColor(patternImage: UIImage(named: "SwitchKnobPattern")!)
+        onFilterSwitch.tintColor = UIColor.grayColor().colorWithAlphaComponent(0.5)
+        onFilterSwitch.onTintColor = UIColor(red: (245.0 / 255.0), green: (166.0 / 255.0), blue: (35.0 / 255.0), alpha: 1)
+        onFilterSwitch.thumbTintColor = UIColor(red: (90.0 / 255.0), green: (95.0 / 255.0), blue: (85.0 / 255.0), alpha: 1)
+
         // Configure the view for the selected state
         
     }
