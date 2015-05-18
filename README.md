@@ -2,7 +2,7 @@
 ## Yelp Client
 This is a Yelp search app using the [Yelp API](https://www.yelp.com/developers/documentation).
 
-Time spent: `<Number of hours spent>`
+Time spent: `38 hours`
 
 ### Features
 
@@ -44,6 +44,7 @@ Time spent: `<Number of hours spent>`
    - [X] User can swipe left to delete items
 - [X] Others
    - [X] Added custom views to NavBar Title Item
+   - [X] Changed Status Bar Color
 
 ### Walkthrough
 
