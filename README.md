@@ -47,8 +47,8 @@ Time spent: `<Number of hours spent>`
 
 ### Walkthrough
 
-![Video Walkthrough](...)
-
+![Video Walkthrough](http://i.imgur.com/AfskpE8.gif)
+![Video Walkthrough](http://i.imgur.com/BkneDaS.gif)
 Credits
 ---------
 * [Yelp API](https://www.yelp.com/developers/documentation)
