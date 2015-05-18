@@ -75,6 +75,7 @@ class PickyFiltersViewController: UIViewController, UITableViewDataSource, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.titleView = UIImageView(image: UIImage(named: "FiltersNavBarClear"))
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor(red: (245.0 / 255.0), green: (166.0 / 255.0), blue: (35.0 / 255.0), alpha: 1)]
         self.navigationController?.navigationBar.backgroundColor = UIColor(red: (90.0 / 255.0), green: (95.0 / 255.0), blue: (85.0 / 255.0), alpha: 1)
         self.navigationController?.navigationBar.barTintColor = UIColor(red: (90.0 / 255.0), green: (95.0 / 255.0), blue: (85.0 / 255.0), alpha: 1)

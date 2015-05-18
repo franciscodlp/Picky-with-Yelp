@@ -36,7 +36,11 @@ class PickySearchBusinessCell: UITableViewCell {
             reviewsCountLabel.text = "\(business.reviewCount!) reviews"
             addressLabel.text = business.address
             categoriesLabel.text = business.categories
-            self.backgroundColor = business.deals! ?  UIColor.redColor().colorWithAlphaComponent(0.3) : UIColor.whiteColor()
+//            self.backgroundColor = business.deals! ?  UIColor.redColor().colorWithAlphaComponent(0.3) : UIColor.whiteColor()
+            var cellBGImage = UIImage(named: "DealsBGWhite")
+            var cellBGImageView = UIImageView(frame: self.frame)
+            cellBGImageView.image = cellBGImage
+            self.backgroundView = business.deals! ?  cellBGImageView : nil
         }
     }
     

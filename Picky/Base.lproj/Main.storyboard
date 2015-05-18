@@ -21,6 +21,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="110" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="R2p-A3-1IY">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="PickySearchBusinessCell" rowHeight="110" id="TAG-DW-vn4" customClass="PickySearchBusinessCell" customModule="Picky" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -318,7 +319,7 @@
                             <constraint firstItem="rYa-gO-XLf" firstAttribute="top" secondItem="QfX-1z-2WC" secondAttribute="bottom" id="e2n-Rt-bin"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Picky Filters" id="ks0-hC-abc">
+                    <navigationItem key="navigationItem" id="ks0-hC-abc">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="wj7-JY-O7m">
                             <connections>
                                 <action selector="onCancelButton:" destination="two-Qa-Msd" id="2jC-A1-c6v"/>
@@ -640,7 +641,7 @@
                             <constraint firstAttribute="bottom" secondItem="iTb-RG-AyK" secondAttribute="bottom" id="oEk-9q-dbD"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Favorites" id="4CX-2y-3uZ"/>
+                    <navigationItem key="navigationItem" id="4CX-2y-3uZ"/>
                     <connections>
                         <outlet property="tableView" destination="iTb-RG-AyK" id="4MM-29-sCc"/>
                     </connections>
@@ -714,11 +715,11 @@
             </objects>
             <point key="canvasLocation" x="11.25" y="-176.40845070422534"/>
         </scene>
-        <!--Search-->
+        <!--Navigation Controller-->
         <scene sceneID="WOe-9f-Yll">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LIO-Dh-neU" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Search" image="ListTabBar" id="vM5-W5-Mh7"/>
+                    <tabBarItem key="tabBarItem" title="" image="ListTabBar" id="vM5-W5-Mh7"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="pQg-0V-Zrk">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -754,11 +755,11 @@
             </objects>
             <point key="canvasLocation" x="3993.75" y="-616.90140845070414"/>
         </scene>
-        <!--Map VIew-->
+        <!--Navigation Controller-->
         <scene sceneID="o6d-a2-Ewe">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iOm-q8-sbm" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Map VIew" image="MapTabBar" id="NVU-hS-GSl"/>
+                    <tabBarItem key="tabBarItem" title="" image="MapTabBar" id="NVU-hS-GSl"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="NiB-Ag-DVp">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -773,11 +774,11 @@
             </objects>
             <point key="canvasLocation" x="1080" y="-987.67605633802805"/>
         </scene>
-        <!--Favorites-->
+        <!--Navigation Controller-->
         <scene sceneID="OE6-WB-Lva">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="eui-fx-8mT" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Favorites" image="LikeTabBar" id="acW-4T-lXD"/>
+                    <tabBarItem key="tabBarItem" title="" image="LikeTabBar" id="acW-4T-lXD"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="1ry-UG-Pls">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -805,7 +806,7 @@
         <image name="downArrow" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="85w-2E-827"/>
+        <segue reference="Zfw-zT-RRN"/>
         <segue reference="vhu-C1-F9Q"/>
     </inferredMetricsTieBreakers>
 </document>

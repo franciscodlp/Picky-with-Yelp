@@ -176,6 +176,14 @@ class PickySearchViewController: UIViewController, UITableViewDataSource, UITabl
         newSearch.offset = 0
         tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
         searchBusinesses(search: newSearch)
+        if businesses.count == 0 || businesses == nil {
+            var imageView = UIImageView(frame: self.tableView.frame)
+            imageView.image = UIImage(named: "NoResultsPlaceholder")
+            tableView.backgroundView = imageView
+        } else {
+            tableView.backgroundView = nil
+        }
+        tableView.reloadData()
     }
     
     // MARK: - Navigation
@@ -203,7 +211,7 @@ class PickySearchViewController: UIViewController, UITableViewDataSource, UITabl
 extension PickySearchViewController: UITableViewDataSource {
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return (businesses == nil || businesses.count == 0 ) ? 0 : 1
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

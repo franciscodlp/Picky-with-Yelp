@@ -165,6 +165,8 @@ class Business: NSObject, NSCoding {
         defaults.synchronize()
     }
     
+    
+    
     class func loadBusinessWithId(businessId: String) -> Business? {
         var defaults = NSUserDefaults.standardUserDefaults()
         var encodedOnject: NSData? = defaults.objectForKey(businessId) as? NSData

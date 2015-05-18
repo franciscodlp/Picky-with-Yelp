@@ -34,13 +34,26 @@ class PickyDetailsViewController: UIViewController, MKMapViewDelegate {
     @IBAction func saveToFavoritesButton(sender: AnyObject) {
         
         if business != nil {
-            Business.saveBusinessWithId(business, businessId: business.yelpID!)
             var favoritesBusinessArray = NSUserDefaults.standardUserDefaults().objectForKey("favoritesBusinessArray") as? [String]
+            
             if favoritesBusinessArray == nil {
                 favoritesBusinessArray = [String]()
+                favoritesBusinessArray!.append(business.yelpID!)
+                NSUserDefaults.standardUserDefaults().setObject(favoritesBusinessArray, forKey: "favoritesBusinessArray")
+                Business.saveBusinessWithId(business, businessId: business.yelpID!)
+                
+            } else if favoritesBusinessArray!.count == 0 {
+                favoritesBusinessArray!.append(business.yelpID!)
+                NSUserDefaults.standardUserDefaults().setObject(favoritesBusinessArray, forKey: "favoritesBusinessArray")
+                Business.saveBusinessWithId(business, businessId: business.yelpID!)
+                
+            } else if !(contains(favoritesBusinessArray!, business.yelpID!)) {
+                favoritesBusinessArray!.append(business.yelpID!)
+                NSUserDefaults.standardUserDefaults().setObject(favoritesBusinessArray, forKey: "favoritesBusinessArray")
+                Business.saveBusinessWithId(business, businessId: business.yelpID!)
             }
-            favoritesBusinessArray!.append(business.yelpID!)
-            NSUserDefaults.standardUserDefaults().setObject(favoritesBusinessArray, forKey: "favoritesBusinessArray")
+            
+
         }
         
         favoriteButton.transform = CGAffineTransformMakeScale(0.1, 0.1)
@@ -59,6 +72,7 @@ class PickyDetailsViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.titleView = UIImageView(image: UIImage(named: "DetailsNavBarClear"))
         
         mapView.delegate = self
         

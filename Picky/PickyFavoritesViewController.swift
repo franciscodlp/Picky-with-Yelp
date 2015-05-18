@@ -20,6 +20,9 @@ class PickyFavoritesViewController: UIViewController, UITableViewDataSource, UIT
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationItem.titleView = UIImageView(image: UIImage(named: "FavoritesNavBarClear"))
+        
         self.tabBarController?.tabBar.barTintColor = grayColor
         self.tabBarController?.tabBar.tintColor = orangeColor
         
@@ -33,8 +36,11 @@ class PickyFavoritesViewController: UIViewController, UITableViewDataSource, UIT
         tableView.dataSource = self
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 120
-        
 
+
+    }
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
         var favoritesBusinessArray = NSUserDefaults.standardUserDefaults().objectForKey("favoritesBusinessArray") as? [String]
         
         if favoritesBusinessArray != nil {
@@ -48,13 +54,13 @@ class PickyFavoritesViewController: UIViewController, UITableViewDataSource, UIT
         
         if businesses == nil {
             var imageView = UIImageView(frame: self.tableView.frame)
-            imageView.image = UIImage(named: "heart")
+            imageView.image = UIImage(named: "FavoritesPagePlaceholder")
             tableView.backgroundView = imageView
         } else {
             tableView.backgroundView = nil
         }
-
-        // Do any additional setup after loading the view.
+        
+        tableView.reloadData()
     }
 
 
@@ -97,5 +103,25 @@ extension PickyFavoritesViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
         selectedBusiness = businesses[indexPath.row]
         return indexPath
+    }
+    
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.Delete {
+            println("Deleting")
+            
+            var favoritesBusinessArray = NSUserDefaults.standardUserDefaults().objectForKey("favoritesBusinessArray") as? [String]
+            favoritesBusinessArray?.removeAtIndex(indexPath.row)
+            NSUserDefaults.standardUserDefaults().setObject(favoritesBusinessArray, forKey: "favoritesBusinessArray")
+            
+            NSUserDefaults.standardUserDefaults().removeObjectForKey(businesses[indexPath.row].yelpID!)
+            
+            businesses.removeAtIndex(indexPath.row)
+            
+            tableView.reloadData()
+        }
     }
 }
