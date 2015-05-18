@@ -45,6 +45,7 @@ Time spent: `38 hours`
 - [X] Others
    - [X] Added custom views to NavBar Title Item
    - [X] Changed Status Bar Color
+   - [X] Added Custom App Icon and Launching Screen
 
 ### Walkthrough
 
