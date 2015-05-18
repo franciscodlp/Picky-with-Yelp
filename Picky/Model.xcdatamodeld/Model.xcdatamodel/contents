@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7549" systemVersion="14D136" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Business" syncable="YES">
+        <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="addressArray" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="categories" optional="YES" syncable="YES"/>
+        <attribute name="coordinate" optional="YES" syncable="YES"/>
+        <attribute name="deals" optional="YES" syncable="YES"/>
+        <attribute name="distance" optional="YES" syncable="YES"/>
+        <attribute name="imageURL" optional="YES" syncable="YES"/>
+        <attribute name="name" optional="YES" syncable="YES"/>
+        <attribute name="phone" optional="YES" syncable="YES"/>
+        <attribute name="ratingImageURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="reviewCount" optional="YES" syncable="YES"/>
+        <attribute name="yelpID" optional="YES" syncable="YES"/>
+    </entity>
+    <entity name="Businesses" syncable="YES">
+        <attribute name="attribute" optional="YES" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Business" positionX="-63" positionY="-18" width="128" height="225"/>
+        <element name="Businesses" positionX="-54" positionY="81" width="128" height="60"/>
+    </elements>
+</model>

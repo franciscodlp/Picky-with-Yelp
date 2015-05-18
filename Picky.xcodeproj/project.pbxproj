@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1639DA801B08514300DC3217 /* PickyDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1639DA7F1B08514300DC3217 /* PickyDetailsViewController.swift */; };
+		1639DA821B098AB600DC3217 /* PickyFavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1639DA811B098AB600DC3217 /* PickyFavoritesViewController.swift */; };
 		1666D1461B066C56004AE1DF /* PickyFiltersExpandableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1666D1451B066C56004AE1DF /* PickyFiltersExpandableCell.swift */; };
 		1666D1481B07BF44004AE1DF /* PickyFiltersSeeAllCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1666D1471B07BF44004AE1DF /* PickyFiltersSeeAllCell.swift */; };
 		1666D14A1B07DCB2004AE1DF /* PickyMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1666D1491B07DCB2004AE1DF /* PickyMapViewController.swift */; };
@@ -42,6 +43,7 @@
 
 /* Begin PBXFileReference section */
 		1639DA7F1B08514300DC3217 /* PickyDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickyDetailsViewController.swift; sourceTree = "<group>"; };
+		1639DA811B098AB600DC3217 /* PickyFavoritesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickyFavoritesViewController.swift; sourceTree = "<group>"; };
 		1666D1451B066C56004AE1DF /* PickyFiltersExpandableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickyFiltersExpandableCell.swift; sourceTree = "<group>"; };
 		1666D1471B07BF44004AE1DF /* PickyFiltersSeeAllCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickyFiltersSeeAllCell.swift; sourceTree = "<group>"; };
 		1666D1491B07DCB2004AE1DF /* PickyMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickyMapViewController.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 				16D0ED0A1B04182F0053CC05 /* PickyFiltersViewController.swift */,
 				1666D1491B07DCB2004AE1DF /* PickyMapViewController.swift */,
 				1639DA7F1B08514300DC3217 /* PickyDetailsViewController.swift */,
+				1639DA811B098AB600DC3217 /* PickyFavoritesViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -361,6 +364,7 @@
 				16D0ED071B0417CE0053CC05 /* PickySearchBusinessCell.swift in Sources */,
 				16D0ED0B1B04182F0053CC05 /* PickyFiltersViewController.swift in Sources */,
 				16D0ECDC1B0414760053CC05 /* AppDelegate.swift in Sources */,
+				1639DA821B098AB600DC3217 /* PickyFavoritesViewController.swift in Sources */,
 				1639DA801B08514300DC3217 /* PickyDetailsViewController.swift in Sources */,
 				16AE2F831B056C090005F343 /* PickyFiltersSortbyCell.swift in Sources */,
 			);

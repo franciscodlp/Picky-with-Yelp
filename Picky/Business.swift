@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Business: NSObject {
+class Business: NSObject, NSCoding {
     let yelpID: String?
     let name: String?
     let imageURL: NSURL?
@@ -21,6 +21,7 @@ class Business: NSObject {
     let deals: Bool?
     let coordinate: NSDictionary?
     let phone: String?
+    
     
     init(dictionary: NSDictionary) {
         yelpID = dictionary["id"] as? String
@@ -110,6 +111,68 @@ class Business: NSObject {
         } else {
             deals = false
         }
+    }
+    
+    override init() {
+        self.yelpID = String()
+        self.name = String()
+        self.imageURL = NSURL()
+        self.address = String()
+        self.addressArray = [String]()
+        self.categories = String()
+        self.distance = String()
+        self.ratingImageURL = NSURL()
+        self.reviewCount = NSNumber()
+        self.deals = Bool()
+        self.coordinate = NSDictionary()
+        self.phone = String()
+    }
+    
+    func encodeWithCoder(aCoder: NSCoder) {
+        if let yelpID = self.yelpID { aCoder.encodeObject(yelpID, forKey: "yelpID") }
+        if let name = self.name { aCoder.encodeObject(name, forKey: "name") }
+        if let imageURL = self.imageURL { aCoder.encodeObject(imageURL, forKey: "imageURL") }
+        if let address = self.address { aCoder.encodeObject(address, forKey: "address") }
+        if let addressArray = self.addressArray { aCoder.encodeObject(addressArray, forKey: "addressArray") }
+        if let categories = self.categories { aCoder.encodeObject(categories, forKey: "categories") }
+        if let distance = self.distance { aCoder.encodeObject(distance, forKey: "distance") }
+        if let ratingImageURL = self.ratingImageURL { aCoder.encodeObject(ratingImageURL, forKey: "ratingImageURL") }
+        if let reviewCount = self.reviewCount { aCoder.encodeObject(reviewCount, forKey: "reviewCount") }
+        if let reviewCount = self.reviewCount { aCoder.encodeObject(deals, forKey: "deals") }
+        if let coordinate = self.coordinate { aCoder.encodeObject(coordinate, forKey: "coordinate") }
+        if let phone = self.phone { aCoder.encodeObject(phone, forKey: "phone") }
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+            self.yelpID = aDecoder.decodeObjectForKey("yelpID") as? String
+            self.name = aDecoder.decodeObjectForKey("name") as? String
+            self.imageURL = aDecoder.decodeObjectForKey("imageURL") as? NSURL
+            self.address = aDecoder.decodeObjectForKey("address") as? String
+            self.addressArray = aDecoder.decodeObjectForKey("addressArray") as? [String]
+            self.categories = aDecoder.decodeObjectForKey("categories") as? String
+            self.distance = aDecoder.decodeObjectForKey("distance") as? String
+            self.ratingImageURL = aDecoder.decodeObjectForKey("ratingImageURL") as? NSURL
+            self.reviewCount = aDecoder.decodeObjectForKey("reviewCount") as? NSNumber
+            self.deals = aDecoder.decodeObjectForKey("deals") as? Bool
+            self.coordinate = aDecoder.decodeObjectForKey("coordinate") as? NSDictionary
+            self.phone = aDecoder.decodeObjectForKey("phone") as? String
+    }
+    
+    class func saveBusinessWithId(business: Business, businessId: String) {
+        var encodedObject: NSData = NSKeyedArchiver.archivedDataWithRootObject(business.self)
+        var defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setObject(encodedObject, forKey: businessId)
+        defaults.synchronize()
+    }
+    
+    class func loadBusinessWithId(businessId: String) -> Business? {
+        var defaults = NSUserDefaults.standardUserDefaults()
+        var encodedOnject: NSData? = defaults.objectForKey(businessId) as? NSData
+        if encodedOnject == nil {
+            return nil
+        }
+        var business: Business? = NSKeyedUnarchiver.unarchiveObjectWithData(encodedOnject!) as? Business
+        return business
     }
     
     class func businesses(#array: [NSDictionary]) -> [Business] {

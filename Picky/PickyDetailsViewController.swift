@@ -27,7 +27,30 @@ class PickyDetailsViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
+    @IBOutlet var favoriteButton: UIButton!
+    
     @IBOutlet var mapView: MKMapView!
+    
+    @IBAction func saveToFavoritesButton(sender: AnyObject) {
+        
+        if business != nil {
+            Business.saveBusinessWithId(business, businessId: business.yelpID!)
+            var favoritesBusinessArray = NSUserDefaults.standardUserDefaults().objectForKey("favoritesBusinessArray") as? [String]
+            if favoritesBusinessArray == nil {
+                favoritesBusinessArray = [String]()
+            }
+            favoritesBusinessArray!.append(business.yelpID!)
+            NSUserDefaults.standardUserDefaults().setObject(favoritesBusinessArray, forKey: "favoritesBusinessArray")
+        }
+        
+        favoriteButton.transform = CGAffineTransformMakeScale(0.1, 0.1)
+        UIView.animateWithDuration(2.0, delay: 0, usingSpringWithDamping: 0.2, initialSpringVelocity: 6.0, options: UIViewAnimationOptions.AllowUserInteraction, animations: { () -> Void in
+            self.favoriteButton.transform = CGAffineTransformIdentity
+            }, completion: { (success:Bool) -> Void in
+                
+        })
+        
+    }
     
     let span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
     
@@ -35,6 +58,7 @@ class PickyDetailsViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         mapView.delegate = self
         

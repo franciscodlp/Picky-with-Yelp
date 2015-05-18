@@ -50,6 +50,17 @@ class PickySearchViewController: UIViewController, UITableViewDataSource, UITabl
         println("PickySearchViewController : viewDidLoad")
         super.viewDidLoad()
         
+        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
+        
+
+        self.tabBarController?.tabBar.barTintColor = UIColor(red: (90.0 / 255.0), green: (95.0 / 255.0), blue: (85.0 / 255.0), alpha: 1)
+        self.tabBarController?.tabBar.tintColor = UIColor(red: (245.0 / 255.0), green: (166.0 / 255.0), blue: (35.0 / 255.0), alpha: 1)
+
+        
+        self.navigationController?.navigationBar.backgroundColor = UIColor(red: (90.0 / 255.0), green: (95.0 / 255.0), blue: (85.0 / 255.0), alpha: 1)
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: (90.0 / 255.0), green: (95.0 / 255.0), blue: (85.0 / 255.0), alpha: 1)
+        self.navigationController?.navigationBar.tintColor = UIColor(red: (245.0 / 255.0), green: (166.0 / 255.0), blue: (35.0 / 255.0), alpha: 1)
+        
         // Configs Table
         tableView.dataSource = self
         tableView.delegate = self
@@ -82,10 +93,13 @@ class PickySearchViewController: UIViewController, UITableViewDataSource, UITabl
         
         // Configs Both SearchBars
         tableHeaderSearchBar = UISearchBar()
+        tableHeaderSearchBar.tintColor = UIColor(red: (245.0 / 255.0), green: (166.0 / 255.0), blue: (35.0 / 255.0), alpha: 1)
+        tableHeaderSearchBar.barTintColor = UIColor(red: (90.0 / 255.0), green: (95.0 / 255.0), blue: (85.0 / 255.0), alpha: 1)
         tableHeaderSearchBar.delegate = self
         tableHeaderSearchBar.showsCancelButton = true
 
         topSearchBar = UISearchBar()
+        topSearchBar.tintColor = UIColor(red: (245.0 / 255.0), green: (166.0 / 255.0), blue: (35.0 / 255.0), alpha: 1)
         topSearchBar.delegate = self
         topSearchBar.tag = 3
         self.navigationItem.titleView = topSearchBar
@@ -105,11 +119,6 @@ class PickySearchViewController: UIViewController, UITableViewDataSource, UITabl
         topSearchBar.hidden = false
         isSearchBarActive = false
         tableView.reloadData()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func onRefresh() {
